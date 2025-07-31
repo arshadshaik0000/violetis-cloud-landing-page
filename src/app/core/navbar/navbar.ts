@@ -10,7 +10,6 @@ import {
   Renderer2
 } from '@angular/core';
 import { CommonModule, NgFor, NgClass } from '@angular/common';
-import { ScrollRevealDirective } from '../../directives/scroll-reveal'; // Custom directive for scroll animations
 import { ThemeService } from '../theme.service'; // Service for theme management
 
 /**
@@ -28,7 +27,7 @@ interface NavLink {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, NgFor, NgClass, ScrollRevealDirective],
+  imports: [CommonModule, NgFor, NgClass],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.scss']
 })
