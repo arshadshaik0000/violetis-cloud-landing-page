@@ -1,0 +1,48 @@
+<section class="ai-api-section">
+  <div class="container">
+    <div class="grid-layout">
+      <div class="text-block" appScrollReveal>
+        <img src="assets/icon-checklist.png" alt="" class="checklist-icon"/>
+        <div class="text-content">
+          <h3>Test, Integrate, and Scale with AI APIs</h3>
+          <p>
+            Text, Vision, and Speech APIs with live testing, code snippets, and key management.
+          </p>
+        </div>
+      </div>
+
+      <div class="visuals-wrapper" appScrollReveal [delay]="150">
+        <img
+          src="assets/ai-api-photo.png"
+          alt="A modern AI API dashboard showing traffic and summary charts"
+          class="main-img"
+          onerror="this.onerror=null;this.src='https://placehold.co/800x500/e0e0e0/757575?text=API+Dashboard';"
+        />
+
+        <form [formGroup]="promptForm"
+              (ngSubmit)="onSubmit()"
+              class="prompt-box"
+              appScrollReveal
+              [delay]="300">
+          <textarea formControlName="prompt"
+                    placeholder="Enter Prompt here..."
+                    [readonly]="isLoading">
+          </textarea>
+          <button type="submit"
+                  [disabled]="promptForm.invalid || isLoading">
+            {{ isLoading ? 'Generating…' : 'Generate' }}
+          </button>
+        </form>
+
+        <div class="response-box" *ngIf="apiResponse" appScrollReveal [delay]="450">
+          <h4>Your Response:</h4>
+          <p>{{ apiResponse }}</p>
+        </div>
+
+        <div class="error-box" *ngIf="error" appScrollReveal [delay]="500">
+          <p class="error">{{ error }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,128 @@
+/*
+ * Feature Card Styles
+ * Defines the visual appearance and interactive effects for individual feature cards.
+ * Includes light and dark theme variations with a unique flowing border effect in dark mode.
+ */
+
+/* 1. Google font import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.feature-card {
+  position: relative;
+  overflow: hidden; /* Hides content outside the card boundaries */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures the card fills its grid cell vertically */
+  border-radius: 2rem; /* Applies rounded corners */
+  background: var(--color-bg);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  padding: var(--space-xl);
+  text-align: left;
+
+  transition:
+    transform var(--anim-duration) var(--anim-ease),
+    box-shadow var(--anim-duration) var(--anim-ease);
+  will-change: transform, box-shadow; /* Optimizes for animation performance */
+
+  /* Light-mode hover lift effect */
+  &:hover,
+  &:focus {
+    transform: translateY(-8px); /* Lifts the card on hover/focus */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12); /* Enlarges shadow on hover/focus */
+  }
+
+  /* Ensures direct children are above any pseudo-elements (like the dark mode border) */
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Icon wrapper styling */
+  .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #FFE066; /* Specific background color for the icon circle */
+    border-radius: 50%; /* Makes the wrapper circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-md);
+
+    img {
+      width: 32px;
+      height: 32px;
+      transition:
+        transform 350ms var(--anim-ease),
+        opacity   350ms var(--anim-ease);
+      will-change: transform, opacity; /* Optimizes for animation performance */
+    }
+    img:hover {
+      transform: scale(1.1); /* Scales up the icon on hover */
+      opacity: 0.85; /* Slightly reduces opacity on hover */
+    }
+  }
+
+  /* Title styling */
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 var(--space-xs);
+    line-height: 1.2;
+    transition: color var(--anim-duration) var(--anim-ease); /* Smooth color transition for themes */
+  }
+
+  /* Description styling */
+  p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--color-text-2);
+    line-height: 1.6;
+    margin: 0;
+    transition: color var(--anim-duration) var(--anim-ease); /* Smooth color transition for themes */
+  }
+}
+
+/* Dark-mode overrides with flowing violet border effect */
+:host-context(.dark-theme) .feature-card {
+  background: var(--color-bg-alt-dark);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.1);
+
+  h3 {
+    color: var(--color-text-dark);
+  }
+  p {
+    color: var(--color-text-2-dark);
+  }
+
+  /* Pseudo-element for the flowing border effect */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px; /* Defines the thickness of the border effect */
+    border-radius: inherit; /* Inherits border-radius from the parent */
+    /* Creates a gradient background that will animate across the border */
+    background: linear-gradient(
+      90deg,
+      rgba(var(--color-brand-rgb), 0.3),
+      rgba(var(--color-brand-rgb), 0.1),
+      rgba(var(--color-brand-rgb), 0.3)
+    ) 0 0 / 200% 100% border-box; /* Sets initial position and size for animation */
+    pointer-events: none; /* Ensures the pseudo-element doesn't interfere with mouse events */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 300ms ease, background-position 2s linear; /* Smooth transitions for reveal and flow */
+    will-change: opacity, background-position; /* Optimizes for animation performance */
+  }
+
+  /* Activates the flowing border effect on hover/focus in dark mode */
+  &:hover::before,
+  &:focus::before {
+    opacity: 1; /* Makes the border visible */
+    background-position: 100% 0; /* Animates the gradient across the border */
+  }
+}
+
+/* Keyframes not explicitly defined as background-position is animated directly */

@@ -1,0 +1,239 @@
+/*
+ * Pricing Plans Section Styles
+ * Defines the layout, appearance, and interactive effects for the pricing plan cards,
+ * including scroll-reveal animations, hover effects, and dark theme adaptations.
+ */
+
+// 1) Scroll-Reveal Wrappers
+// Styles for the individual pricing card wrappers before they are revealed by scrolling.
+:host ::ng-deep .pricing-card-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+// Styles applied when the card wrapper enters the viewport, triggering the reveal animation.
+:host ::ng-deep .pricing-card-wrapper.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// 2) Section Base
+// Base styles for the entire pricing plans section and its main content container.
+.pricing-plans-section {
+  background-color: #fdfdff;
+  padding: 8rem 1rem;
+  font-family: 'Inter', sans-serif;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.section-title {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 4rem;
+  transition: color 0.5s ease-out; /* Smooth color transition for themes */
+}
+
+// 3) Grid Layout
+// Styles for the grid that arranges the pricing cards.
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column on smaller screens */
+  gap: 2rem;
+  align-items: stretch; /* Ensures all cards in a row have the same height */
+
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr); /* Three columns on larger screens */
+  }
+}
+
+// 4) Card Styles
+// Defines the general appearance and interactive effects for each pricing card.
+.pricing-card {
+  background-color: #f9c335;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.07);
+  position: relative;
+  overflow: hidden; /* Ensures any background effects are clipped */
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease; /* Smooth transitions for hover effects */
+
+  &:hover {
+    transform: translateY(-12px); /* Lifts the card on hover */
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); /* Enlarges shadow on hover */
+  }
+
+  .plan-name {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1f2937;
+    transition: color 0.4s ease;
+  }
+  .plan-price {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0.5rem 0;
+    span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4b5563;
+    }
+  }
+  .divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(0,0,0,0.1);
+    margin: 1rem 0;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    flex-grow: 1; /* Allows the list to fill available vertical space */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      color: #374151;
+      &::before {
+        content: '✔'; /* Custom bullet point (checkmark) */
+        color: #1f2937;
+      }
+    }
+  }
+
+  .choose-plan-btn {
+    background-color: #4f46e5;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
+    will-change: transform; /* Optimizes for animation performance */
+
+    .arrow-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      transition: transform 0.3s ease; /* Smooth transition for arrow movement */
+    }
+
+    &:hover {
+      background-color: #4338ca; /* Darker background on hover */
+      transform: translateX(4px); /* Moves button slightly to the right on hover */
+    }
+  }
+
+  // Styles for the 'featured' pricing card, making it stand out.
+  &.featured {
+    background-color: #aec7ed;
+    transform: scale(1.05); /* Slightly larger scale for emphasis */
+    z-index: 1; /* Ensures it overlaps other cards slightly */
+
+    // Pseudo-element for a subtle radial glow effect
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.4), transparent 70%);
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.5s ease;
+      pointer-events: none; /* Allows clicks to pass through */
+    }
+
+    &:hover {
+      transform: scale(1.12) translateY(-12px); /* More pronounced lift and scale on hover */
+      &::before { opacity: 1; } /* Reveals the radial glow on hover */
+    }
+  }
+}
+
+// 5) Staggered Children Animations
+// Base styles for elements that will animate in a staggered fashion.
+.anim-child {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+// 5a) When the wrapper enters view, trigger staggered animation for children.
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .anim-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+// Apply specific delays to each child for the staggered effect.
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .plan-name { transition-delay: 0.2s; }
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .plan-price { transition-delay: 0.3s; }
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .divider { transition-delay: 0.4s; }
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .features-list li:nth-child(1) { transition-delay: 0.5s; }
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .features-list li:nth-child(2) { transition-delay: 0.6s; }
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .features-list li:nth-child(3) { transition-delay: 0.7s; }
+:host ::ng-deep .pricing-card-wrapper.in-view .pricing-card .choose-plan-btn { transition-delay: 0.8s; }
+
+// 6) Touch & Hardware Acceleration
+// Optimizations for touch devices and smooth animations.
+.pricing-card, .choose-plan-btn {
+  backface-visibility: hidden; /* Ensures elements are rendered by GPU for smoother transforms */
+}
+.choose-plan-btn {
+  min-height: 44px; /* Ensures sufficient touch target size for accessibility */
+  touch-action: manipulation; /* Improves responsiveness for touch interactions */
+}
+
+// 7) Responsive Adjustments
+@media (max-width: 991px) {
+  .pricing-grid {
+    gap: 3rem; /* Adjusts gap between cards on smaller screens */
+  }
+  .pricing-card.featured {
+    transform: scale(1); /* Resets scale for featured card on smaller screens */
+    &:hover { transform: translateY(-12px); } /* Maintains original hover effect */
+  }
+}
+
+// 8) Dark Mode Overrides
+// Styles applied when the 'dark-theme' class is present on the host context (e.g., body).
+:host-context(.dark-theme) {
+  .pricing-plans-section { background-color: var(--color-bg-dark); }
+  .section-title   { color: var(--color-text-dark); }
+  .pricing-card {
+    background-color: var(--color-accent); /* Changes card background to accent color */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4); /* Darker shadow for cards */
+
+    .plan-name, .plan-price, .divider, .features-list li {
+      color: var(--color-text-dark); /* Adjusts text colors for dark theme */
+    }
+
+    &.featured { background-color: var(--color-accent-secondary); } /* Specific background for featured card in dark theme */
+  }
+  .choose-plan-btn {
+    background-color: var(--color-accent); /* Adjusts button background for dark theme */
+    &:hover { filter: brightness(0.9); } /* Subtle brightness change on hover */
+  }
+}

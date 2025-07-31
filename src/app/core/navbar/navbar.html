@@ -1,0 +1,41 @@
+<nav class="navbar-custom" role="navigation" aria-label="Main">
+  <div class="brand" tabindex="0" role="button" (click)="setActiveLink('home', 0)">
+    Violetis® Cloud
+  </div>
+
+  <ul
+    #navContainer
+    class="nav-links"
+    role="tablist"
+    (mouseleave)="onNavLeave()"
+  >
+    <div #navPill class="nav-pill"></div>
+
+    <li
+      #navItems
+      *ngFor="let link of navLinks; let i = index"
+      role="tab"
+      tabindex="0"
+      [attr.aria-selected]="activeLink === link.fragment"
+      [ngClass]="{ active: activeLink === link.fragment }"
+      (click)="setActiveLink(link.fragment, i)"
+      (mouseenter)="onItemEnter(i)"
+      (keydown.enter)="setActiveLink(link.fragment, i)"
+      (keydown.space)="setActiveLink(link.fragment, i)"
+    >
+      <span>{{ link.label }}</span>
+    </li>
+  </ul>
+
+  <button
+    class="theme-toggle"
+    (click)="themeService.toggle()"
+    [class.active]="themeService.isDark"
+    aria-label="Toggle theme"
+  >
+    <ng-container *ngIf="themeService.isDark; else lightTpl">
+      🌙 Dark Mode On
+    </ng-container>
+    <ng-template #lightTpl>☀️ Light Mode</ng-template>
+  </button>
+</nav>

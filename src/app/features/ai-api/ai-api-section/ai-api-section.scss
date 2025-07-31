@@ -1,0 +1,313 @@
+/*
+ * AI API Section Styles
+ * Defines the visual presentation, responsive layout, and interactive
+ * effects for the AI API feature section.
+ */
+
+/* --------------------------------------------
+ * VARIABLES & EASING
+ * Global variables and animation easing for consistency.
+--------------------------------------------- */
+$ease-smooth: cubic-bezier(0.23, 1, 0.32, 1); // Custom easing function
+$dur-smooth: 500ms; // Standard duration for smooth transitions
+
+/* --- Scroll-Reveal Animations --- */
+// Styles for elements before they are in view (initial state for animation).
+:host ::ng-deep [appScrollReveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 600ms var(--anim-ease),
+    transform 600ms var(--anim-ease);
+  will-change: opacity, transform; // Optimize for animation performance
+}
+// Styles for elements once they are in view.
+:host ::ng-deep [appScrollReveal].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Main Section Styles --- */
+.ai-api-section {
+  background: var(--color-bg); // Background color from CSS variables
+  padding: 8rem 1rem; // Section padding
+  overflow: hidden; // Hides overflowing content, important for animations
+  font-family: var(--font-secondary); // Main font for the section
+  transition:
+    background var(--anim-duration) var(--anim-ease),
+    color var(--anim-duration) var(--anim-ease); // Smooth theme transitions
+}
+
+/* --- Container & Grid Layout --- */
+.container {
+  max-width: 1200px; // Limits content width
+  margin: 0 auto; // Centers the container
+  padding: 0 15px; // Horizontal padding
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr; // Single column by default for smaller screens
+  align-items: center; // Vertically aligns grid items
+  gap: 4rem; // Spacing between grid items
+
+  @media (min-width: 992px) {
+    grid-template-columns: 0.8fr 1.2fr; // Two columns on larger screens
+    gap: 3rem; // Adjusted gap for larger screens
+  }
+}
+
+/* --- Left Column: Text Block --- */
+.text-block {
+  position: relative;
+
+  .checklist-icon {
+    position: relative; // Positioned for flow, not absolute
+    width: 80px;
+    height: 80px;
+    border-radius: 100%; // Circular shape
+    background: var(--color-bg-alt); // Background color
+    display: block; // Ensures block-level behavior for layout
+    padding: var(--space-md); // Internal padding for the icon
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08); // Subtle shadow
+    transition:
+      transform $dur-smooth $ease-smooth,
+      box-shadow $dur-smooth $ease-smooth; // Smooth transition for hover
+    will-change: transform, box-shadow; // Optimize for animation performance
+  }
+  &:hover .checklist-icon {
+    transform: scale(1.05); // Scales up on hover
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12); // Enhanced shadow on hover
+  }
+
+  .text-content {
+    position: relative;
+    z-index: 1; // Ensures text is above any background elements
+    padding: 2rem 0; // Padding for the text content
+  }
+
+  h3 {
+    font-size: 2.75rem;
+    font-family: 'Inter';
+    font-weight: 1000;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    transition: color var(--anim-duration) var(--anim-ease); // Theme transition
+  }
+
+  p {
+    font-size: 1.125rem;
+    font-family: 'Inter';
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: 420px; // Limits line length for readability
+    transition: color var(--anim-duration) var(--anim-ease); // Theme transition
+  }
+}
+
+/* --- Right Column: Visuals --- */
+.visuals-wrapper {
+  position: relative; // Allows absolute positioning of child elements (prompt-box)
+
+  .main-img {
+    width: 100%;
+    border-radius: 1.25rem;
+    display: block;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12); // Prominent shadow
+    transition:
+      transform $dur-smooth $ease-smooth,
+      box-shadow $dur-smooth $ease-smooth; // Smooth transition for hover
+    will-change: transform, box-shadow; // Optimize for animation performance
+  }
+  &:hover .main-img {
+    transform: translateY(-4px) scale(1.02); // Slight lift and scale on hover
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.18); // Enhanced shadow on hover
+  }
+
+  .prompt-box {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px -15px rgba(135, 152, 174, 0.22); // Shadow for floating effect
+    position: absolute; // Positioned relative to .visuals-wrapper
+    bottom: -3.5rem; // Offset from bottom
+    right: -2rem; // Offset from right
+    z-index: 10; // Ensures it floats above other content
+    transition:
+      transform $dur-smooth $ease-smooth,
+      box-shadow $dur-smooth $ease-smooth; // Smooth transition for hover
+    will-change: transform, box-shadow; // Optimize for animation performance
+
+    &:hover {
+      transform: translateY(-8px); // Lifts higher on hover
+      box-shadow: 0 25px 50px -15px rgba(135, 152, 174, 0.28); // More pronounced shadow on hover
+    }
+
+    textarea {
+      width: 100%;
+      height: 90px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      font-family: var(--font-secondary);
+      font-size: 1rem;
+      background-color: var(--color-white);
+      color: var(--color-text);
+      resize: none; // Prevents user resizing
+      box-sizing: border-box; // Includes padding/border in width calculation
+      margin-bottom: 1rem;
+      transition:
+        background $dur-smooth $ease-smooth,
+        border-color $dur-smooth $ease-smooth,
+        box-shadow $dur-smooth $ease-smooth; // Smooth transitions for focus/theme
+      will-change: background, border-color, box-shadow; // Optimize for animation performance
+
+      &::placeholder {
+        color: var(--color-text-2); // Placeholder text color
+      }
+      &:focus {
+        outline: none;
+        border-color: var(--color-accent); // Highlight border on focus
+        background-color: var(--color-white);
+        box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.35); // Focus ring
+      }
+    }
+
+    button {
+      display: inline-block;
+      margin-left: auto; // Pushes button to the right
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background-color: var(--color-accent); // Accent color for button
+      color: var(--color-white);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 2rem; // Rounded button corners
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(var(--color-accent-rgb), 0.4); // Button shadow
+      transition:
+        transform $dur-smooth $ease-smooth,
+        box-shadow $dur-smooth $ease-smooth,
+        filter $dur-smooth $ease-smooth; // Smooth transitions for hover/disabled
+      will-change: transform, box-shadow, filter; // Optimize for animation performance
+      min-width: 44px; // Ensures button meets accessibility touch target size
+      min-height: 44px; // Ensures button meets accessibility touch target size
+
+      &:hover:not(:disabled) {
+        filter: brightness(0.9); // Slight darkening on hover
+        transform: translateY(-2px); // Slight lift on hover
+        box-shadow: 0 10px 25px rgba(var(--color-accent-rgb), 0.5); // Enhanced shadow on hover
+      }
+      &:disabled {
+        opacity: 0.6; // Reduces opacity when disabled
+        cursor: not-allowed; // Changes cursor for disabled state
+      }
+    }
+  }
+}
+
+/* --- Response / Error Boxes --- */
+// Base styles for response and error messages (initially hidden for reveal effect).
+.response-box,
+.error-box {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity $dur-smooth $ease-smooth,
+    transform $dur-smooth $ease-smooth;
+  will-change: opacity, transform;
+}
+
+// Applies reveal effect for response/error boxes when parent is in view.
+:host ::ng-deep [appScrollReveal].in-view ~ .response-box,
+:host ::ng-deep [appScrollReveal].in-view ~ .error-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+.response-box { transition-delay: 600ms; } // Additional delay for response box to appear after form
+
+/* --- Responsive Breakpoints --- */
+@media (max-width: 991px) {
+  .grid-layout {
+    gap: 1rem;
+    align-items: flex-start; // Aligns items to the start on smaller screens
+  }
+  .text-block {
+    text-align: center; // Centers text content
+    padding-top: 5rem;
+    .checklist-icon {
+      left: 50%;
+      transform: translateX(-50%) rotate(-12deg); // Centers and rotates icon
+      top: -20px;
+      width: 150px;
+      height: 150px;
+    }
+    h3, p {
+      max-width: 550px;
+      margin: 0 auto; // Centers text content
+    }
+  }
+  .visuals-wrapper {
+    margin-top: 2rem;
+    .prompt-box {
+      position: relative; // Removes absolute positioning
+      bottom: auto; // Resets bottom
+      right: auto; // Resets right
+      margin: -2rem auto 0; // Centers horizontally and adjusts top margin
+    }
+  }
+}
+
+/* --- Light/Dark Theme Overrides --- */
+// Styles applied when the 'dark-theme' class is present on the host context (e.g., body).
+:host-context(.dark-theme) {
+  .ai-api-section {
+    background: linear-gradient(135deg, #1f2130 0%, #2b2e42 100%); // Dark gradient background
+  }
+  .text-block {
+    h3, p {
+      color: var(--color-text-dark); // Adjusts text color for dark theme
+    }
+    .checklist-icon {
+      filter: brightness(1.3); // Brightens icon for dark theme visibility
+    }
+  }
+  .visuals-wrapper {
+    .main-img {
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); // Darker shadow for image
+    }
+    .prompt-box {
+      background: rgba(40,40,60,0.6); // Semi-transparent dark background
+      backdrop-filter: blur(14px); // Blurs content behind
+      border: 1px solid rgba(var(--color-brand-rgb), 0.2); // Subtle brand-colored border
+      box-shadow: 0 30px 60px rgba(var(--color-brand-rgb), 0.3); // Brand-colored shadow
+
+      &:hover {
+        background: rgba(40,40,60,0.8);
+        transform: translateY(-4px);
+        box-shadow: 0 35px 70px rgba(var(--color-brand-rgb), 0.5);
+      }
+
+      textarea {
+        background: rgba(255,255,255,0.05); // Semi-transparent white background
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.6); // Inset shadow for depth
+        color: var(--color-text-dark); // Text color for dark theme
+      }
+      button {
+        background: rgba(var(--color-brand-rgb),0.2); // Semi-transparent brand color
+        color: var(--color-brand); // Brand color text
+        border: none;
+
+        &:hover:not(:disabled) {
+          background: rgba(var(--color-brand-rgb),0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(var(--color-brand-rgb),0.5);
+        }
+      }
+    }
+  }
+}

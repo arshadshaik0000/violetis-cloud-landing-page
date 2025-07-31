@@ -1,0 +1,27 @@
+<section class="developer-dashboard-section">
+  <div class="container">
+    <h2 appScrollReveal>Developer Dashboard</h2>
+    <p appScrollReveal [delay]="50">
+      Here's a quick overview of your cloud service usage metrics.
+    </p>
+
+    <div class="metrics-grid">
+      <mat-card
+        *ngFor="let m of usageMetrics"
+        class="metric-card"
+        appScrollReveal
+        [delay]="m.delay"
+      >
+        <mat-card-header>
+          <div class="icon-wrap">
+            <mat-icon>{{ m.icon }}</mat-icon> </div>
+          <mat-card-title>{{ m.title }}</mat-card-title> </mat-card-header>
+
+        <mat-card-content>
+          <div class="value">
+            {{ m.value }}<span class="unit">{{ m.unit }}</span> </div>
+          <div class="desc">{{ m.description }}</div> </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>

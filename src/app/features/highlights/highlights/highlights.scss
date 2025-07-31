@@ -1,0 +1,60 @@
+/*
+ * Highlights Section Styles
+ * Defines the overall layout and appearance for the section showcasing key features.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); /* Imports Google Font */
+
+.highlights-section {
+  background: var(--color-bg-alt); /* Background color from global variables */
+  padding: var(--space-xxl) var(--space-sm); /* Vertical and horizontal padding */
+
+  .container {
+    max-width: 1200px; /* Limits the maximum width of content */
+    margin: 0 auto; /* Centers the container horizontally */
+  }
+
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 1000; /* Extra bold font weight */
+    font-size: 2.5rem;
+    color: var(--color-text); /* Text color from global variables */
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: var(--space-xxl);
+    transition: color var(--anim-duration) var(--anim-ease); /* Smooth transition for theme changes */
+  }
+
+  .cards-grid {
+    display: grid;
+    /* Responsive grid columns: auto-fit creates as many columns as possible,
+       minmax ensures cards are at least 280px wide but stretch to fill available space. */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl); /* Spacing between grid items */
+
+    align-items: stretch; /* Stretches all grid items (feature cards) to the same height */
+
+    justify-content: end; /* Pushes grid items to the right when there's extra space (fewer than max columns) */
+  }
+}
+
+/* Responsive tweaks for small screens */
+@media (max-width: var(--bp-sm)) {
+  .highlights-section {
+    padding: var(--space-lg) var(--space-sm); /* Adjusts padding for smaller screens */
+
+    h2 {
+      font-size: 2rem; /* Reduces font size of the heading */
+      margin-bottom: var(--space-lg); /* Adjusts bottom margin */
+    }
+  }
+}
+
+/* Dark-mode background & text overrides */
+:host-context(.dark-theme) .highlights-section {
+  background: var(--color-bg-dark); /* Darker background for dark theme */
+
+  h2 {
+    color: var(--color-text-dark); /* Lighter text color for dark theme heading */
+  }
+}

@@ -1,0 +1,129 @@
+/*
+ * Navbar Styles
+ * Defines the layout, appearance, and interactive effects of the main navigation bar.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); /* Import Google Fonts */
+
+.navbar-custom {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%); /* Centers the navbar horizontally */
+  display: flex;
+  align-items: center;
+  padding: 16px 64px;
+  background: var(--color-bg-alt);
+  border-radius: 72px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+  z-index: 100;
+  white-space: nowrap;
+  transition: background .3s ease, color .3s ease; /* Smooth transition for theme changes */
+
+  .brand {
+    font-weight: 1000;
+    font-size: 1.25rem;
+    color: var(--color-brand);
+    margin-right: 64px;
+    cursor: pointer;
+    transition: color .3s ease;
+
+    &:hover, &:focus {
+      color: var(--color-brand-hover);
+      outline: none;
+    }
+  }
+
+  .nav-links {
+    position: relative;
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .nav-pill {
+      /* Dynamic background pill for active/hovered link */
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: var(--color-accent);
+      border-radius: 50px;
+      z-index: 1;
+      transition: all .4s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    li {
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: transform .3s ease, box-shadow .3s ease;
+      z-index: 2; /* Ensures text is above the nav-pill */
+
+      span {
+        display: block;
+        padding: 12px 32px;
+        border-radius: 50px;
+        background: var(--color-bg);
+        color: var(--color-text);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition:
+          background .3s ease,
+          color .3s ease,
+          transform .3s ease,
+          box-shadow .3s ease;
+      }
+
+      &.active span,
+      &:hover span {
+        background: transparent;
+        color: var(--color-bg-alt);
+      }
+
+      &:hover, &:focus {
+        span {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+      }
+    }
+  }
+
+  .theme-toggle {
+    margin-left: 32px;
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--color-brand);
+    transition: transform .3s ease, opacity .3s ease, color .3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+    }
+
+    &.active {
+      color: var(--color-text);
+    }
+  }
+}
+
+/* Responsive adjustments for screens under 900px */
+@media (max-width: 900px) {
+  .navbar-custom {
+    flex-direction: column; /* Stacks items vertically */
+    padding: 16px 32px;
+    gap: 12px;
+  }
+  .navbar-custom .brand {
+    margin-right: 0;
+  }
+  .navbar-custom .nav-links {
+    flex-wrap: wrap; /* Allows navigation links to wrap */
+    justify-content: center;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,19 @@
+<section class="highlights-section">
+  <div class="container">
+    <h2 appScrollReveal class="fade-up">
+      Everything You Need to Launch AI at Scale
+    </h2>
+
+    <div class="cards-grid">
+      <app-feature-card
+        *ngFor="let f of features; let i = index"
+        [icon]="f.icon"
+        [title]="f.title"
+        [description]="f.description"
+        appScrollReveal
+        class="fade-up"
+        [delay]="i * 150">
+      </app-feature-card>
+    </div>
+  </div>
+</section>

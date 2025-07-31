@@ -1,0 +1,204 @@
+/*
+ * Hero Section Styles
+ * Defines the layout, appearance, and animations for the main introductory section
+ * of the landing page, including text content, a call-to-action button, and interactive visuals.
+ */
+
+/* 1. Google font import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* 2. Hero Section */
+.hero-section {
+  min-height: 100vh; /* Ensures the section takes full viewport height */
+  background: url('/assets/hero-bg.png') no-repeat center center/cover; /* Background image */
+  display: flex;
+  align-items: center; /* Vertically centers content */
+  padding: 8rem 0 4rem;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* Prevents content overflow */
+  transition: background var(--anim-duration) var(--anim-ease),
+              color var(--anim-duration) var(--anim-ease); /* Smooth theme transitions */
+
+  /* 2.1 Text block */
+  .hero-text {
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      max-width: 550px;
+      transition: color var(--anim-duration) var(--anim-ease); /* Theme transition */
+    }
+    .hero-tagline {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-text-2);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      transition: color var(--anim-duration) var(--anim-ease); /* Theme transition */
+    }
+  }
+
+  /* 2.2 CTA Button */
+  .cta-btn {
+    background: var(--color-white);
+    color: var(--color-black);
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition:
+      background 350ms var(--anim-ease),
+      color 350ms var(--anim-ease),
+      transform 350ms var(--anim-ease),
+      box-shadow 350ms var(--anim-ease);
+    will-change: background, color, transform, box-shadow; /* Optimize for animation performance */
+
+    &:hover {
+      background: var(--color-black);
+      color: var(--color-white);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transform: translateY(-3px); /* Lifts button on hover */
+    }
+  }
+
+  /* 2.3 Visual block */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    perspective: 1200px; /* Establishes 3D perspective for child elements */
+
+    /* Main illustration */
+    .hero-main {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      transition: transform 350ms var(--anim-ease),
+                  box-shadow 350ms var(--anim-ease);
+      will-change: transform; /* Optimize for animation performance */
+
+      &:hover {
+        transform: scale(1.02); /* Slightly scales up on hover */
+      }
+    }
+
+    /* Floating icons and popups */
+    .hero-icon,
+    .hero-popup {
+      position: absolute;
+      will-change: transform; /* Optimize for animation performance */
+      transition: transform 350ms var(--anim-ease);
+    }
+
+    .hero-icon.icon-3 {
+      transform:
+        translateY(var(--y-icon, 0px))
+        translateX(var(--x-icon, 0px))
+        rotateX(var(--rx, -5deg))
+        rotateY(var(--ry, 5deg));
+      animation: floatTilt 5s var(--anim-ease) infinite; /* Applies floating animation */
+      top: -30px;
+      right: 0;
+      width: 110px;
+      z-index: 3;
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+
+    .hero-popup.popup-1 {
+      transform:
+        translateY(var(--y-popup, 0px))
+        translateX(var(--x-popup, 0px))
+        rotateX(var(--rx, 5deg))
+        rotateY(var(--ry, -10deg));
+      top: 15%;
+      left: -60px;
+      width: 300px;
+      z-index: 1;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+  }
+}
+
+/* 3. Keyframes for floating effect */
+@keyframes floatTilt {
+  0%   { transform: translateY(0)     rotateY(-5deg) rotateX(3deg); }
+  25%  { transform: translateY(-10px) rotateY(0deg)  rotateX(0deg); }
+  50%  { transform: translateY(-15px) rotateY(5deg)  rotateX(-3deg); }
+  75%  { transform: translateY(-10px) rotateY(0deg)  rotateX(0deg); }
+  100% { transform: translateY(0)     rotateY(-5deg) rotateX(3deg); }
+}
+
+/* 4. Responsive tweaks */
+@media (max-width: 992px) {
+  .hero-section {
+    padding-top: 10rem;
+    text-align: center;
+  }
+  .hero-text {
+    h1, .hero-tagline {
+      max-width: 100%;
+    }
+  }
+  .hero-visual {
+    margin-top: 3rem;
+    min-height: 400px;
+
+    .hero-popup.popup-1 {
+      width: 250px;
+      left: -30px;
+    }
+    .hero-icon.icon-3 {
+      width: 90px;
+      right: -15px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-visual {
+    min-height: 320px;
+  }
+}
+
+/* 5. Dark Mode Overrides */
+// Styles applied when the 'dark-theme' class is present on the host context (e.g., body).
+:host-context(.dark-theme) .hero-section {
+  /* Remove the original background image */
+  background-image: none !important;
+
+  /* Apply a dark gradient background */
+  background: linear-gradient(
+    to bottom right,
+    #1e1e2f 0%,
+    #121221 100%
+  ) no-repeat center center/cover !important;
+
+  /* Adjust text colors for dark theme */
+  .hero-text {
+    h1 { color: var(--color-text-dark); }
+    .hero-tagline { color: var(--color-text-2-dark); }
+  }
+
+  /* Adjust CTA button for dark theme */
+  .cta-btn {
+    background: var(--color-bg-alt-dark);
+    color: var(--color-text-dark);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  /* Illustration and icons remain unchanged in dark mode */
+  .hero-main,
+  .hero-icon,
+  .hero-popup {
+    /* No visual changes, layout preserved */
+  }
+}

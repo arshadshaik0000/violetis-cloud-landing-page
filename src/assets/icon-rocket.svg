@@ -1,0 +1,23 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rocket Body -->
+  <g transform="rotate(-45 36 36)">
+    <!-- Main Body -->
+    <path d="M36 10 C42 10, 48 20, 48 30 L48 50 C48 52, 46 54, 44 54 L28 54 C26 54, 24 52, 24 50 L24 30 C24 20, 30 10, 36 10 Z" fill="#8AB0F3"/>
+    <path d="M36 10 C42 10, 48 20, 48 30 L48 50 C48 52, 46 54, 44 54 L28 54 C26 54, 24 52, 24 50 L24 30 C24 20, 30 10, 36 10 Z" stroke="#2D6BD6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Nose Cone -->
+    <path d="M36 10 C32 2, 40 2, 36 10 Z" fill="#E3F2FD"/>
+    <path d="M36 10 C32 2, 40 2, 36 10 Z" stroke="#2D6BD6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Window -->
+    <circle cx="36" cy="28" r="6" fill="#E3F2FD" stroke="#2D6BD6" stroke-width="3"/>
+
+    <!-- Fins -->
+    <path d="M24 38 L16 48 L24 46 Z" fill="#4285F4" stroke="#2D6BD6" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M48 38 L56 48 L48 46 Z" fill="#4285F4" stroke="#2D6BD6" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Flame -->
+    <path d="M30 54 Q36 68 42 54" fill="#F9C335"/>
+    <path d="M32 54 Q36 64 40 54" fill="#FFD460"/>
+  </g>
+</svg>

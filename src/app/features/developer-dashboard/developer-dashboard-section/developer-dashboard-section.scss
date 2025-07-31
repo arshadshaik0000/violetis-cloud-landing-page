@@ -1,0 +1,227 @@
+/*
+ * Developer Dashboard Section Styles
+ * Defines the layout, appearance, and interactive effects for the metrics dashboard,
+ * including individual metric cards and theme adaptations.
+ */
+
+/* 1. Variables & Breakpoints */
+// Defines reusable variables for spacing, animation, colors, and shadows.
+$bp-sm:     var(--bp-sm);
+$bp-md:     var(--bp-md);
+$bp-lg:     var(--bp-lg);
+
+$grid-gap: var(--space-lg);
+$anim-duration: 600ms;
+$anim-ease: cubic-bezier(0.215,0.61,0.355,1); // Custom easing for smooth animations
+$hover-duration: 350ms;
+
+/* Light & dark card backgrounds */
+$card-bg-light: var(--color-bg-alt);
+$card-bg-dark:  var(--color-bg-alt-dark);
+
+/* Shadows */
+$shadow-light: rgba(0,0,0,0.06);
+$shadow-hover: rgba(0,0,0,0.12);
+$shadow-dark:   rgba(0,0,0,0.5);
+
+/* 2. Section & Container */
+// Styles for the main section container and its immediate children.
+.developer-dashboard-section {
+  background: var(--color-bg);
+  padding: var(--space-xxl) var(--space-lg);
+  transition: background $anim-duration $anim-ease, color $anim-duration $anim-ease;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+      font-size: 2.4rem;
+      margin-bottom: var(--space-xs);
+      color: var(--color-text);
+      font-weight: 700;
+      line-height: 1.2;
+      transition: color $anim-duration $anim-ease; // Smooth color transition for themes
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--color-text-2);
+      margin-bottom: var(--space-lg);
+      transition: color $anim-duration $anim-ease; // Smooth color transition for themes
+    }
+  }
+}
+
+/* 3. Grid of Cards */
+// Styles for the grid layout containing the metric cards.
+.metrics-grid {
+  display: grid;
+  gap: $grid-gap;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); // Responsive grid columns
+  perspective: 800px; // Establishes perspective for 3D transforms on child elements
+}
+
+/* 4. Metric Card with Pop-In & 3D Tilt */
+// Defines the individual metric card's appearance and interactive animations.
+.metric-card {
+  background: $card-bg-light;
+  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 6px $shadow-light;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d; // Ensures child elements are rendered in 3D space
+  will-change: transform, box-shadow, opacity; // Optimizes for animation performance
+  transition:
+    transform $hover-duration $anim-ease,
+    box-shadow $hover-duration $anim-ease,
+    background $anim-duration $anim-ease,
+    border-color $hover-duration $anim-ease;
+
+  /* Hover: Applies a 3D tilt, slight lift, and border highlight */
+  &:hover {
+    transform: perspective(800px) rotateX(3deg) translateY(-4px) translateZ(4px);
+    box-shadow: 0 8px 20px $shadow-hover;
+    border-color: rgba(var(--color-brand-rgb),0.4);
+  }
+
+  /* Pop-In animation on scroll reveal */
+  &.in-view {
+    opacity: 0; // Initial state for pop-in animation
+    transform: scale(0.97) translateY(20px); // Initial state for pop-in animation
+    animation: popIn $anim-duration $anim-ease forwards; // Triggers pop-in animation
+  }
+}
+// Keyframe animation for the pop-in effect.
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 5. Header & Icon */
+// Styles for the header section of each metric card, including the icon.
+.metric-card mat-card-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+
+  .icon-wrap {
+    background: rgba(var(--color-brand-rgb),0.1);
+    width: 2.75rem; height: 2.75rem;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-right: var(--space-sm);
+    transition: transform $hover-duration $anim-ease, opacity $hover-duration $anim-ease;
+
+    mat-icon {
+      color: var(--color-brand);
+      font-size: 1.75rem;
+    }
+
+    &:hover {
+      transform: scale(1.15); // Scales up icon on hover
+      opacity: 0.85;
+    }
+  }
+
+  mat-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    transition: color $anim-duration $anim-ease; // Smooth color transition for themes
+  }
+}
+
+/* 6. Content */
+// Styles for the main content area of each metric card.
+.metric-card mat-card-content {
+  padding: 0 var(--space-lg) var(--space-xl);
+  flex: 1; // Allows content to fill available vertical space
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-brand); // Brand color for primary value
+    margin-bottom: var(--space-xs);
+    transition: color $hover-duration $anim-ease;
+
+    .unit {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--color-text-2); // Secondary text color for units
+      margin-left: var(--space-xs);
+      transition: color $anim-duration $anim-ease; // Smooth color transition for themes
+    }
+  }
+
+  .desc {
+    font-size: 0.875rem;
+    color: var(--color-text-2); // Secondary text color for description
+    line-height: 1.4;
+    margin-top: auto; // Pushes description to the bottom if content is short
+    transition: color $anim-duration $anim-ease; // Smooth color transition for themes
+  }
+}
+
+/* 7. Dark Mode Overrides */
+// Styles specific to the dark theme, applied when `body.dark-theme` is active.
+body.dark-theme {
+  .developer-dashboard-section {
+    background: var(--color-bg-dark);
+  }
+
+  .metric-card {
+    background: $card-bg-dark; // Dark background for cards
+    border-color: rgba(255,255,255,0.05); // Lighter border for dark theme
+    box-shadow: 0 2px 6px $shadow-dark; // Darker shadow for cards
+
+    &:hover {
+      box-shadow: 0 8px 20px $shadow-dark; // More pronounced dark shadow on hover
+    }
+  }
+
+  .metric-card mat-card-header .icon-wrap {
+    background: rgba(var(--color-brand-rgb),0.2); // Darker background for icon wrapper
+  }
+
+  .metric-card mat-card-title,
+  .metric-card .value,
+  .metric-card .unit,
+  .metric-card .desc {
+    transition: color $anim-duration $anim-ease; // Ensures smooth color transition for text elements
+  }
+
+  .metric-card mat-card-title { color: var(--color-text-dark); }
+  .metric-card .value { color: var(--color-brand-hover); } // Adjusted brand color for dark theme
+  .metric-card .unit,
+  .metric-card .desc { color: var(--color-text-2-dark); }
+}
+
+/* 8. Responsive Tweaks */
+// Adjustments for various screen sizes using defined breakpoints.
+@media (max-width: $bp-lg) {
+  .developer-dashboard-section {
+    padding: var(--space-xl) var(--space-md);
+
+    .container h2 { font-size: 2rem; }
+    .container p  { font-size: 0.95rem; }
+  }
+  .metrics-grid { gap: var(--space-md); } // Reduces gap between cards on medium screens
+  .metric-card {
+    mat-card-header { padding: var(--space-sm) var(--space-md); }
+    mat-card-content { padding: 0 var(--space-md) var(--space-lg); }
+    .value { font-size: 2rem; }
+  }
+}
+
+@media (max-width: $bp-sm) {
+  .metrics-grid { grid-template-columns: 1fr; } // Stacks cards into a single column on small screens
+}

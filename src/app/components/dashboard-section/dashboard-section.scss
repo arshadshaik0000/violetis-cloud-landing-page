@@ -1,0 +1,128 @@
+/*
+ * Dashboard Section Styles
+ * Defines the visual and responsive properties for the AI Infrastructure section.
+ */
+
+:host {
+  display: block; /* Ensures host element is block-level */
+
+  /* On mobile, reverse column order to show image first */
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+.dashboard-section {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-xxl) var(--space-xs);
+  transition: background 0.3s ease, color 0.3s ease;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    /* Section Title */
+    font-family: 'Inter';
+    font-weight: 800;
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-subtitle {
+    /* Section Subtitle */
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: var(--color-text-2);
+    max-width: 37.5rem; /* 600px */
+    margin: 0 auto var(--space-xl);
+    line-height: 1.4;
+  }
+
+  .content-container {
+    margin-top: var(--space-lg);
+  }
+
+  .content-block {
+    /* Left Text Block */
+    h3 {
+      font-family: var(--font-secondary);
+      font-weight: 800;
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    p {
+      font-family: 'Inter';
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--color-text-2);
+      max-width: 28.125rem; /* 450px */
+      line-height: 1.6;
+      margin-bottom: var(--space-xxl);
+    }
+
+    .content-icon {
+      width: 100%;
+      margin-top: var(--space-xxl);
+      opacity: 0.9;
+      display: block;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+
+      &:hover {
+        transform: rotate(5deg) scale(1.05);
+        opacity: 1;
+      }
+    }
+  }
+
+  .dashboard-image-wrapper {
+    /* Right Image Block */
+    img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 var(--space-sm) var(--space-md) rgba(45, 55, 72, 0.15);
+      transition: transform 0.4s ease;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .dashboard-section {
+    padding: var(--space-lg) var(--space-xs);
+
+    .content-block h3 {
+      font-size: 2rem;
+      font-family: 'Inter';
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-section {
+    padding: var(--space-md) var(--space-xs);
+    text-align: center;
+
+    .content-block {
+      margin-bottom: var(--space-xl);
+
+      h3 {
+        font-size: 2rem;
+      }
+
+      .content-icon {
+        margin: var(--space-md) auto 0;
+      }
+    }
+  }
+}

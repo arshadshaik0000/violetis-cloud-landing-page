@@ -1,0 +1,231 @@
+/*
+ * Scale Storage Section Styles
+ * Defines the visual presentation, responsive layout, and interactive elements
+ * for the compute and storage management section.
+ */
+
+/* --- Animation Classes for Scroll Reveal --- */
+// Base styles for elements before they are revealed by scrolling.
+:host ::ng-deep [appScrollReveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+// Styles applied when elements enter the viewport, triggering the reveal animation.
+:host ::ng-deep [appScrollReveal].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Main Section Styles --- */
+.scale-storage-section {
+  background: #fff8e0; /* Light background color for the section */
+  padding: 6rem 1rem;
+  overflow: hidden; /* Ensures content stays within bounds, important for animations */
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- Layout and Container --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+  align-items: center; /* Vertically aligns items in the row */
+  margin: 0 -15px; /* Compensates for column padding */
+}
+.col-md-7, .col-md-5 {
+  width: 100%; /* Full width on small screens */
+  padding: 0 15px;
+  box-sizing: border-box; /* Includes padding in width calculation */
+}
+
+/* --- Left Column: Image Wrapper --- */
+.image-wrapper {
+  position: relative; /* Establishes positioning context for absolute children */
+  padding: 1rem;
+
+  .tabs {
+    position: absolute; /* Positions tabs relative to .image-wrapper */
+    top: -20px;
+    left: 0px;
+    z-index: 1; /* Ensures tabs are behind the main image */
+
+    .tab {
+      width: 120px;
+      height: 50px;
+      border-radius: 12px;
+      position: absolute;
+      transition: transform 350ms var(--anim-ease);
+
+      &.back {
+        background: #c1d3f5;
+        transform: rotate(-10deg) translate(5px, 5px); /* Rotates and offsets the back tab */
+      }
+      &.front {
+        background: #8ab0f3;
+        transform: rotate(-15deg) translate(-15px, -10px); /* Rotates and offsets the front tab */
+      }
+    }
+  }
+
+  .storage-img {
+    width: 100%;
+    height: max-content; /* Ensures image scales proportionally */
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2; /* Ensures main image is above tabs */
+    transition: transform 350ms var(--anim-ease), box-shadow 350ms var(--anim-ease);
+    will-change: transform, box-shadow; /* Optimizes for animation performance */
+
+    &:hover {
+      transform: scale(1.02); /* Slightly scales up image on hover */
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.2); /* Enlarges shadow on hover */
+    }
+  }
+}
+
+/* --- Right Column: Text Block --- */
+.text-block {
+  padding: 1rem;
+
+  .pdf-icon {
+    width: 50%;
+    height: auto;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    transition: transform 350ms var(--anim-ease), opacity 350ms var(--anim-ease);
+    will-change: transform, opacity; /* Optimizes for animation performance */
+
+    &:hover {
+      transform: scale(1.1); /* Scales up icon on hover */
+      opacity: 1;
+    }
+  }
+
+  h3 {
+    font-size: 2.5rem;
+    font-weight: 1000;
+    color: black;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+    transition: color var(--anim-duration) var(--anim-ease); /* Smooth color transition for themes */
+  }
+
+  p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: black;
+    margin: 0 0 2.5rem;
+    max-width: 450px; /* Limits line length for readability */
+    transition: color var(--anim-duration) var(--anim-ease); /* Smooth color transition for themes */
+  }
+
+  .explore-btn {
+    background: #f9c335;
+    color: #111;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(249, 195, 53, 0.4);
+    transition: transform 350ms var(--anim-ease), box-shadow 350ms var(--anim-ease), filter 350ms var(--anim-ease);
+    will-change: transform, box-shadow, filter; /* Optimizes for animation performance */
+    min-height: 44px; /* Ensures button is touch-friendly for accessibility */
+
+    &:hover {
+      filter: brightness(0.9); /* Slightly dims background on hover */
+      transform: translateY(-3px); /* Lifts button on hover */
+      box-shadow: 0 10px 25px rgba(249, 195, 53, 0.5); /* Enlarges shadow on hover */
+    }
+  }
+}
+
+/* --- Bottom Features Row --- */
+.features-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 5rem;
+  transition: opacity var(--anim-duration) var(--anim-ease);
+
+  img {
+    width: 72px;
+    opacity: 0.85;
+    transition: transform 350ms var(--anim-ease), opacity 350ms var(--anim-ease);
+    will-change: transform, opacity; /* Optimizes for animation performance */
+
+    &:hover {
+      transform: translateY(-8px) scale(1.1); /* Lifts and scales icon on hover */
+      opacity: 1;
+    }
+  }
+}
+
+/* --- Responsive Breakpoints --- */
+@media (min-width: 768px) {
+  .col-md-7 {
+    flex: 0 0 58.333333%; /* Sets column width for medium screens */
+    max-width: 58.333333%;
+  }
+  .col-md-5 {
+    flex: 0 0 41.666667%; /* Sets column width for medium screens */
+    max-width: 41.666667%;
+  }
+}
+@media (max-width: 767px) {
+  .scale-storage-section {
+    padding: 4rem 1rem; /* Adjusts padding for small screens */
+  }
+  .text-block {
+    margin-top: 3rem;
+    text-align: center; /* Centers text content on small screens */
+    p, .pdf-icon {
+      margin: 0 auto; /* Centers paragraph and icon horizontally */
+    }
+  }
+  .text-block h3 {
+    font-size: 2rem; /* Reduces heading font size */
+  }
+  .features-row {
+    margin-top: 4rem;
+    gap: 2rem;
+    flex-wrap: wrap; /* Allows feature icons to wrap */
+
+    img {
+      width: 60px; /* Reduces icon size */
+    }
+  }
+}
+
+/* --- Light/Dark Theme Overrides --- */
+// Styles applied when the 'dark-theme' class is present on the host context (e.g., body).
+:host-context(.dark-theme) {
+  .scale-storage-section {
+    background: var(--color-bg-dark); /* Dark background for the section */
+  }
+  .text-block {
+    h3, p {
+      color: var(--color-text-dark); /* Adjusts text color for dark theme */
+    }
+    .explore-btn {
+      background: var(--color-bg-alt-dark); /* Darker background for button */
+      color: var(--color-text-dark); /* Lighter text for button */
+      box-shadow: 0 6px 18px rgba(255,255,255,0.2); /* Lighter shadow for button */
+      filter: none; /* Resets any filter applied in light mode */
+    }
+    .pdf-icon {
+      filter: brightness(1.2); /* Brightens icon for better visibility in dark theme */
+    }
+  }
+  .features-row img {
+    filter: brightness(1.2); /* Brightens icons for better visibility in dark theme */
+  }
+}

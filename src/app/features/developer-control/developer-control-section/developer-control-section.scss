@@ -1,0 +1,229 @@
+/*
+ * Developer Control Section Styles
+ * Defines the visual presentation, responsive layout, and interactive elements
+ * for the developer control features section.
+ */
+
+/* --- Animation Classes for Scroll Reveal --- */
+// Base styles for elements before they are revealed by scrolling.
+:host ::ng-deep [appScrollReveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+// Styles applied when elements are in view, triggering the reveal animation.
+:host ::ng-deep [appScrollReveal].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Main Section Styles --- */
+.developer-control-section {
+  padding-bottom: 8rem;
+  overflow: hidden; /* Ensures content stays within bounds */
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+}
+
+/* --- Header Banner --- */
+.header-banner {
+  background-color: #f9c335;
+  padding: 4rem 1rem;
+  text-align: center;
+  margin-bottom: 6rem;
+
+  h2 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    white-space: nowrap; /* Prevents text wrapping on larger screens */
+    overflow-x: auto; /* Allows horizontal scrolling if text overflows */
+    transition: color 0.5s ease-out; /* Smooth color transition for themes */
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: black;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    transition: color 0.5s ease-out; /* Smooth color transition for themes */
+  }
+}
+
+/* --- Main Content Container --- */
+.main-content.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* --- Grid Layout --- */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column on small screens */
+  align-items: center; /* Vertically aligns grid items */
+  gap: 4rem;
+
+  @media (min-width: 992px) {
+    grid-template-columns: 1.1fr 0.9fr; /* Two columns on larger screens */
+    gap: 5rem;
+  }
+}
+
+/* --- Left Column: Image --- */
+.image-wrapper {
+  .dashboard-img {
+    width: 100%;
+    height: auto;
+    transform: rotate(-8deg); /* Applies a slight rotation to the image */
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+    will-change: transform; /* Optimizes for animation performance */
+    /* No hover effect applied as per design request */
+  }
+}
+
+/* --- Right Column: Features List + Button --- */
+.right-column-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures content block fills available height in grid */
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex-grow: 1; /* Allows the list to take up available vertical space */
+
+  .feature-item {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    padding-left: 1rem;
+    border-left: 3px solid transparent; /* Transparent border for hover effect */
+    white-space: nowrap; /* Prevents text from wrapping on one line */
+    transition:
+      color 0.5s ease-out,
+      border-color 0.5s ease-out,
+      transform 0.5s ease-out;
+    will-change: transform, border-color; /* Optimize for animation performance */
+
+    &:hover {
+      color: #000;
+      border-left-color: #f9c335; /* Changes border color on hover */
+      transform: translateX(10px); /* Slides item to the right on hover */
+    }
+  }
+}
+
+/* --- Bottom Button: Aligned with the features list --- */
+.button-wrapper {
+  display: flex;
+  justify-content: flex-start; /* Aligns button to the start, matching feature items */
+  margin-top: 5rem;
+
+  .explore-btn {
+    background: #f9c335;
+    color: #111;
+    border: none;
+    border-radius: 50px;
+    padding: 1.25rem 3rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    white-space: nowrap; /* Prevents button text from wrapping */
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(249,195,53,0.4);
+    transition:
+      background 0.5s ease-out,
+      transform 0.5s ease-out,
+      box-shadow 0.5s ease-out;
+    will-change: transform, background, box-shadow; /* Optimize for animation performance */
+
+    &:hover {
+      background: #eab52d; /* Slightly darker background on hover */
+      transform: translateY(-3px); /* Lifts button on hover */
+      box-shadow: 0 10px 25px rgba(249,195,53,0.5); /* Enhanced shadow on hover */
+    }
+  }
+}
+
+/* --- Responsive Adjustments (up to 991px) --- */
+@media (max-width: 991px) {
+  .header-banner {
+    margin-bottom: 4rem;
+    h2 {
+      white-space: normal; /* Allows text to wrap on smaller screens */
+    }
+  }
+  .grid-layout {
+    gap: 5rem;
+  }
+  .features-list {
+    text-align: center; /* Centers feature items horizontally */
+
+    .feature-item {
+      border-left: none; /* Removes left border on mobile */
+      padding-left: 0;
+      white-space: normal; /* Allows text to wrap if needed */
+      &:hover {
+        transform: scale(1.05); /* Scales item slightly on hover (mobile equivalent of translate) */
+      }
+    }
+  }
+  .button-wrapper {
+    justify-content: center; /* Centers button horizontally on mobile */
+  }
+}
+
+/* --- Touch Areas & Hardware Acceleration --- */
+// Ensures sufficient touch target size for interactive elements.
+.features-list .feature-item,
+.button-wrapper .explore-btn {
+  min-height: 44px;
+  padding: 0.5rem; /* Adjusts padding for touch target without affecting overall size too much */
+  touch-action: manipulation; /* Improves responsiveness on touch devices */
+}
+
+// Applies `backface-visibility: hidden` for smoother hardware-accelerated transforms.
+.image-wrapper .dashboard-img,
+.features-list .feature-item,
+.button-wrapper .explore-btn {
+  backface-visibility: hidden;
+}
+
+/* --- Dark-Mode Overrides --- */
+// Styles applied when the 'dark-theme' class is present on the host context (e.g., body).
+:host-context(.dark-theme) {
+  .developer-control-section {
+    background-color: var(--color-bg-dark); /* Dark background for the section */
+  }
+  .header-banner {
+    background-color: var(--color-accent); /* Accent color for dark theme banner */
+
+    h2, p {
+      color: var(--color-text-dark); /* Adjusts text color for dark theme */
+    }
+  }
+  .features-list .feature-item {
+    color: var(--color-text-2-dark); /* Secondary text color for dark theme */
+
+    &:hover {
+      color: var(--color-text-dark); /* Primary text color on hover */
+      border-left-color: var(--color-accent); /* Accent border color on hover */
+    }
+  }
+  .button-wrapper .explore-btn {
+    background: var(--color-accent); /* Accent background for button */
+    color: var(--color-text-dark); /* Text color for dark theme button */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6); /* Darker shadow for button */
+
+    &:hover {
+      filter: brightness(0.9); /* Slight dimming on hover */
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8); /* More pronounced dark shadow */
+    }
+  }
+}
