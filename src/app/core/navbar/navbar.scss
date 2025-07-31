@@ -2,9 +2,6 @@
  * Navbar Styles
  * Defines the layout, appearance, and interactive effects of the main navigation bar.
  */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); /* Import Google Fonts */
-
 .navbar-custom {
   position: absolute;
   top: 24px;
@@ -16,7 +13,7 @@
   background: var(--color-bg-alt);
   border-radius: 72px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; // Font is now loaded globally via index.html
   z-index: 100;
   white-space: nowrap;
   transition: background .3s ease, color .3s ease; /* Smooth transition for theme changes */

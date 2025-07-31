@@ -3,8 +3,6 @@
  * Defines the overall layout and appearance for the section showcasing key features.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); /* Imports Google Font */
-
 .highlights-section {
   background: var(--color-bg-alt); /* Background color from global variables */
   padding: var(--space-xxl) var(--space-sm); /* Vertical and horizontal padding */
