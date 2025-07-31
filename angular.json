@@ -23,6 +23,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "inlineFonts": false,
             "assets": [
               "src/assets",
               {
@@ -46,7 +47,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "1.5MB",
-                  "maximumError": "3MB" 
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
