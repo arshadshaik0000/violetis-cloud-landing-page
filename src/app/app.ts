@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-
-import { ScrollRevealDirective } from './directives/scroll-reveal';
-
 import { NavbarComponent } from './core/navbar/navbar';
 import { HeroComponent } from './features/hero/hero';
 import { HighlightsComponent } from './features/highlights/highlights/highlights';
@@ -25,7 +22,6 @@ import { DeveloperDashboardSectionComponent } from "./features/developer-dashboa
     CommonModule,
     MatCardModule,
     MatIconModule,
-    ScrollRevealDirective,
     NavbarComponent,
     HeroComponent,
     HighlightsComponent,
